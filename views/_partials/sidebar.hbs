@@ -1,0 +1,95 @@
+{{!-- <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+    
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#" class="row">
+                            <i class="fas fa-home"></i>
+                            <span class="col">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="row">
+                            <i class="far fa-user"></i>
+                            <span class="col">Portfolio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="row">
+                            <i class="fas fa-users"></i>
+                            <span class="col">Team</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="row">
+                            <i class="far fa-calendar-alt"></i>
+                            <span class="col">Calendar</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+                });
+            </script>
+     --}}
+
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed pt-5" id="sidebar">
+    <div class="sidebar-sticky">
+        {{!-- <div class="sidebar-header">
+            <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div> --}}
+        <ul class="list-unstyled components">
+            <li class="">
+                <a href="/users/{{UserId}}/projects" class="">
+                    <i class="fas fa-home"></i>
+                    <span class="col">Home</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="/users/{{UserId}}/portfolio" class="">
+                    <i class="far fa-user"></i>
+                    <span class="col">Portfolio</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="">
+                    <i class="fas fa-users"></i>
+                    <span class="col">Team</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="">
+                    <i class="far fa-calendar-alt"></i>
+                    <span class="col">Calendar</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+
+            if ($('#sidebar').hasClass('active')) {
+                $('main').css({ marginLeft: '50px' });
+            } else {
+                $('main').css({ marginLeft: '210px' });
+            }
+        });
+    });
+</script>

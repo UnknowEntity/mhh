@@ -1,0 +1,175 @@
+<div class="modal fade" id="tasks_modal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form action="" id="Create_Task_Form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control border Task_Name" aria-label="title" id="title"
+                        placeholder="Enter task name" />
+                    <div class="row mt-2 mb-2">
+                        <div class="form-group col-5 row">
+                            <label for="staticEmail" class="col-5 col-form-label">Start Date</label>
+                            <div class="input-group date col-7 {{#if this.disable}} disable {{/if}}">
+                                <input type="text" class="form-control" id="AddStart"><span class="input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-4 row">
+                            <label for="staticEmail" class="col-5 col-form-label">Due Date</label>
+                            <div class="input-group date col-7 {{#if this.disable}} disable {{/if}}">
+                                <input type="text" class="form-control" id="AddDue"><span class="input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-4 row">
+                            <label for="#Add_Task_Select_Col" class="col-sm-4 col-form-label">Column</label>
+                            <select class="form-control col-sm-8" id="Add_Task_Select_Col">
+                                {{#each this.Column}}
+                                <option value="{{ID}}">{{Name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-5 row">
+                            <label for="Select" class="col-sm-4 col-form-label">Assign</label>
+                            <select class="form-control col-sm-8 Create_task_Assign" id="Select">
+                                {{#each this.Users}}
+                                <option value="{{Id}}">{{Username}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-7 Remove text-right">
+                            <button type="button" class="btn btn-success pr-3 Add_User_Assign"><i
+                                    class="fas fa-plus"></i> Add</button>
+                            <button type="button" class="btn btn-danger Remove_User_Assign"><i
+                                    class="fas fa-trash-alt"></i> Remove</button>
+                        </div>
+                        <div class="form-group col-12">
+                            <select multiple class="form-control Create_task_Assigned" id="Select">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="AddTask">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="Update_tasks_modal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form id="Update_tasks_form">
+                <div class="modal-header">
+                    <select class="custom-select" id="Task_Status">
+                        <option value="1" class="bg-light">Default</option>
+                        <option value="2" class="bg-warning">Flaged Complete</option>
+                        {{#if IsManager}}
+                            <option value="3"  class="bg-success">Complete</option>
+                           <option value="4"  class="bg-danger">Incomplete</option>
+                        {{/if}}
+                    </select>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control border Task_Name" aria-label="title" id="title"
+                        placeholder="Enter task name" />
+                    <div class="row mt-2 mb-2">
+                        <div class="form-group col-5 row">
+                            <label for="staticEmail" class="col-5 col-form-label">Start Date</label>
+                            <div class="input-group date col-7" id={{#if this.disable}}"disable"{{/if}}>
+                                <input type="text" class="form-control" id="UpdateStart"><span
+                                    class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-4 row">
+                            <label for="staticEmail" class="col-5 col-form-label">Due Date</label>
+                            <div class="input-group date col-7">
+                                <input type="text" class="form-control" id="UpdateDue"><span
+                                    class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-4 row">
+                            <label for="#Update_Task_Select_Col" class="col-sm-4 col-form-label">Column</label>
+                            <select class="form-control col-sm-8" id="Update_Task_Select_Col">
+                                {{#each this.Column}}
+                                <option value="{{ID}}">{{Name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-5 row">
+                            <label for="_Select" class="col-sm-4 col-form-label">Assign</label>
+                            <select class="form-control col-sm-8 Update_task_Assign" id="_Select">
+                                {{#each this.Users}}
+                                <option value="{{Id}}">{{Username}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-7 Remove text-right">
+                            <button type="button" class="btn btn-success pr-3 Update_Assign_Button"><i
+                                    class="fas fa-plus"></i> Add</button>
+                            <button type="button" class="btn btn-danger Update_Remove_Button"><i
+                                    class="fas fa-trash-alt"></i> Remove</button>
+                        </div>
+                        <div class="form-group col-12">
+                            <select multiple class="form-control" id="Update_task_Assigned">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-2">
+                        <div class="form-group row col-12">
+                            <label for="Uploadname" class="col-sm-2 col-form-label">Upload name</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-sm" id="Uploadname"
+                                    placeholder="Name">
+                            </div>
+                            <label for="Link" class="col-sm-1 col-form-label">Link</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control form-control-sm" id="Link" placeholder="http:">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-success rounded-circle Add_Url"><i
+                                        class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+                            class="col-md-12 Upload_Content border row">
+
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-2">
+                        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+                            class="col-md-12 Comment_Content border"></div>
+                        <div class="col-md-10 pt-3">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-0 bg-transparent"><i
+                                            class="fas fa-align-left"></i></span></div>
+
+                                <textarea class="form-control border" id="comment"
+                                    placeholder="Write a comment..."></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2 float-right pt-4">
+                            <button type="button" class="btn btn-primary" id="Send_Comment"><i
+                                    class="fas fa-paper-plane"></i> Post</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn-danger float-left ml-2 Delete_Task" >Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="SaveChange">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

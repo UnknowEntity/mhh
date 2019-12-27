@@ -1,0 +1,185 @@
+<style>
+    .ava {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        border-width: 5px;
+        border-color: #19608b;
+        overflow: hidden;
+        background-color: blue;
+    }
+
+    .thumb {
+        height: 150px;
+        width: 150px;
+
+    }
+</style>
+<div class="bio-compose">
+    <div class="d-flex flex-column align-items-center">
+        {{#if data.Avatar}}
+        <img class="rounded-circle img-thumbnail thumb" src="{{data.Avatar}}" alt="avatar">
+        {{else}}
+        <img class="rounded-circle img-thumbnail thumb"
+            src="https://specials-images.forbesimg.com/imageserve/5cc0c243a7ea436c70f3ba2f/960x0.jpg" alt="avatar">
+        {{/if}}
+        {{#if data.Fullname}}
+        <h3>{{data.Fullname}}</h3>
+        {{else}}
+        <h3>Name is missing</h3>
+        {{/if}}
+    </div>
+    {{!-- Bio --}}
+    <div class="card mt-4 shadow">
+        <div class="card-body">
+            <h5 class="card-title">Bio</h5>
+            <h6 class="card-subtitle mb-2 text-muted">About me ...</h6>
+            {{#if data.Bio}}
+            <p class="card-text" id="bio">{{data.Bio}}</p>
+            {{else}}
+            <p class="card-text" id="bio">
+                Add some bio to let people know who you are. Click <code>Update</code> below!
+            </p>
+            {{/if}}
+            <a href="javascript:;" class="card-link" data-toggle="modal" data-target="#update-bio">Update</a>
+        </div>
+    </div>
+</div>
+{{!-- Bio modal --}}
+<div id="update-bio" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update your bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-bio">Bio:</label>
+                    <textarea class="form-control" name="new-bio" id="new-bio" rows="3">
+
+                    </textarea>
+                    <script>
+                        var text = $("#bio").html()
+                        $("#new-bio").html(text);
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="changebio()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Basic credentials --}}
+<div class="card my-4 shadow">
+    <div class="card-body">
+        <h5 class="card-title">Basic</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Your basic credential</h6>
+        <div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="form-group row">
+                        <label for="uname" class="col-sm-2 col-form-label">Username: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="uname" placeholder="{{data.Username}}" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-2 col-form-label">Password:</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" placeholder="******" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email: </label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" placeholder="{{data.Email}}" readonly>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button type="button my-3" class="btn btn-warning" data-toggle="modal" data-target="#changePwd">Change
+            password</button>
+        <!-- Modal -->
+        <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" name="pwd" id="pwd" class="form-control" placeholder="*******">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-pwd">New password:</label>
+                            <input type="password" name="new-pwd" id="new-pwd" class="form-control"
+                                placeholder="*******">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-pdw">Confirm password:</label>
+                            <input type="password" name="confirm-new-pdw" id="confirm-new-pdw" class="form-control"
+                                placeholder="*******">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="changepwd()">Save changes</button>
+                    </div>
+                    <script>
+                        function changepwd() {
+                            var curpwd = $("#pwd").val();
+                            var newpwd = $("#new-pwd").val();
+                            var cfmpwd = $("#confirm-new-pdw").val();
+                            if (newpwd != cfmpwd) {
+                                alert("Wrong confirmation password!");
+                                return;
+                            }
+                            $.post("/users/{{data.Id}}/chgpwd", {
+                                curpwd: curpwd,
+                                newpwd: newpwd
+                            }).done(data => {
+                                if (data.success == true) {
+                                    alert("Your password changed successfully");
+                                    $("#changePwd").modal(toggle);
+                                } else {
+                                    alert("An error has occurred");
+                                    $("#changePwd").modal(toggle);
+                                }
+                            })
+                        }
+
+                        function changebio() {
+                            var newbio = $("#new-bio").val();
+                            $.post("/users/{{data.Id}}/chgbio", {
+                                bio: newbio
+                            }).done(data => {
+                                if (data.success == true) {
+                                    var text = $("#new-bio").val();
+                                    $("#bio").html(text);
+                                    alert("Your bio changed successfully");
+                                } else {
+                                    alert("An error has occurred");
+                                }
+                            })
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
