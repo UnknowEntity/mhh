@@ -1,0 +1,8 @@
+.card {
+  height: 250px !important;
+  min-height: 250px;
+}
+
+.card img {
+  width: 156px !important;
+}

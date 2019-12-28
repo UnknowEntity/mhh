@@ -1,0 +1,69 @@
+.content {
+  width: 60%;
+  margin: auto;
+  margin-top: 30px;
+}
+.Cover {
+  height: 250px;
+  margin: 10px;
+}
+.Info-wrap {
+  margin: 10px;
+}
+.Description {
+  width: 80%;
+}
+
+.Review {
+  width: 90%;
+}
+
+.Text-Truncate {
+  max-height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Recomendation {
+  margin-top: 30px;
+  float: right;
+  height: 560px;
+  width: 200px;
+}
+
+.About {
+  margin-top: 30px;
+  float: left;
+  height: 450px;
+  width: 200px;
+}
+
+.Author-Pic {
+  height: 182px;
+}
+
+.Up {
+  width: 40px;
+  height: 26px;
+
+  text-align: center;
+  line-height: 10px;
+}
+
+.Up i {
+  font-size: 13pt;
+}
+
+.Cover-Recomendation {
+  height: 200px;
+  margin: 10px;
+}
+
+.Recomendation-List {
+  max-height: 465px;
+  overflow: hidden;
+}
+.Seller {
+  font-size: 13pt;
+  line-height: 1.3;
+}

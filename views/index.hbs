@@ -1,7 +1,21 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<div>{{#if temp}}
-    {{temp}}
-    {{else}}
-    No Cart
-    {{/if}}</div>
+<div class="d-flex flex-column container mb-3">
+    <div class="row">
+        {{#each products}}
+        <div class="card mb-3 col-6">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.price}}</p>
+                        <a href="/products/{{this.id}}" class="btn btn-info">Info</a>
+                        {{!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

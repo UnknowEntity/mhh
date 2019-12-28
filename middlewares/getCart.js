@@ -1,11 +1,14 @@
-//var usermodel = require("../models/user.model");
+var usermodel = require("../models/user.model");
 
 module.exports = (req, res, next) => {
-  console.log(req.user);
   if (req.user !== false && req.user !== undefined) {
-    req["cart"] = `got cart ${req.user}`;
+    usermodel.getCurrentCart(req.user.id).then(cartData => {
+      req["cart"] = cartData;
+      next();
+      return;
+    });
+  } else {
+    req["cart"] = false;
     next();
   }
-  req["cart"] = false;
-  next();
 };

@@ -1,0 +1,78 @@
+<form id="RegisterForm" class="shadow p-3" method="POST">
+    <div class="form-group">
+        <label for="InputUsername">Product Name</label>
+        <input type="text" class="form-control" id="InputUsername" name="name" placeholder="Enter your product name">
+    </div>
+    <div class="form-group">
+        <label for="Inputthumbnail">Thumbnail</label>
+        <input type="text" class="form-control" id="Inputthumbnail" name="thumbnail"
+            placeholder="Enter your thumbnail picture link address">
+    </div>
+    <div class="form-group">
+        <label for="Inputprice">Price</label>
+        <input type="text" class="form-control" id="Inputprice" name="price" placeholder="50.00$">
+    </div>
+    <div class="form-group">
+        <label for="Inputquanlity">Quanlity</label>
+        <input type="text" class="form-control" id="Inputquanlity" name="quanlity" placeholder="10">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary w-50">Add Product</button>
+    </div>
+    <div class="text-center p-3">
+        <a href="/" class="btn btn-success">Cancel</a>
+    </div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+        $('#RegisterForm').validate({
+            rules: {
+                name: {
+                    required: true,
+                    maxlength: 200
+                },
+                description: {
+                    required: true,
+                },
+                price: {
+                    required: true,
+                    number: true
+                },
+                quanlity: {
+                    required: true,
+                    number: true
+                },
+            },
+            messages: {
+                name: {
+                    required: 'Your username is required.',
+                    maxlength: 'Maximum lenght is 200 charaters.',
+                },
+                description: {
+                    required: 'Your description is required.',
+                },
+                price: {
+                    required: 'Your price is required.',
+                    number: "Input must be a number"
+                },
+                quanlity: {
+                    required: 'Your quanlity is required.',
+                    number: "Input must be a number"
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'form-text text-danger',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>

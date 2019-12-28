@@ -4,16 +4,16 @@ var userModel = {
     return db.load("select * from user;");
   },
   singleByUserName: userName => {
-    return db.load(`select * from user where Username = '${userName}'`);
+    return db.load(`select * from user where username = '${userName}'`);
   },
 
   singleById: id => {
-    var sql = `SELECT * FROM user WHERE Id = ${id}`;
+    var sql = `SELECT * FROM user WHERE id = ${id}`;
     return db.load(sql);
   },
 
   email: function(id) {
-    var sql = "select `Email` from `user` where `Id` = " + id;
+    var sql = "select `Email` from `user` where `id` = " + id;
     console.log(sql);
     return db.load(sql);
   },
@@ -36,8 +36,11 @@ var userModel = {
   //   return db.load(sql);
   // },
   getCurrentCart: function(id) {
-    var sql = `select Id, Avatar, Fullname, Username, Email, Bio, if(Id in (select user.Id from user, project where user.Id = project.UserId && project.Id=${id}), 1, 0) as Role from(select user.* from user, project where user.Id = project.UserId && project.Id=${id} union select user.* from user, participation where user.Id = participation.UserId && participation.ProjectId=${id}) as a`;
-
+    var sql = `SELECT P.* 
+      FROM cart C, cart_product CP, product P 
+      WHERE C.user_id=${id} 
+      AND CP.cart_id=C.id 
+      AND CP.product_id=P.id`;
     return db.load(sql);
   }
 };

@@ -29,11 +29,18 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="form-inline my-2 my-lg-0">
+            {{!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
+            {{#if isLogin}}
+            <a class="btn btn-success my-2 my-sm-0 ml-2" href="/users/add/product">Add Product</a>
+            <form action="/users/logout" method="POST">
+                <button class="btn btn-secondary ml-3" type="submit">Sign out</button>
+            </form>
+            {{else}}
             <a class="btn btn-success my-2 my-sm-0 ml-2" href="/users/login">Log In</a>
             <a class="btn btn-info my-2 my-sm-0 ml-2" href="/users/register">Register</a>
-        </form>
+            {{/if}}
+        </div>
     </div>
 </nav>

@@ -19,12 +19,19 @@
 
 <body>
 
-    {{#if script}}
-    {{{script}}}
-    {{/if}}
+  {{#if script}}
+  {{{script}}}
+  {{/if}}
 
-    {{{body}}}
-      
+  {{> navbar}}
+  <div class="container-fluid d-flex align-items-stretch w-100">
+    <div class="row w-100">
+      <main role="main" class="px-4 w-100" id="content">
+        {{{body}}}
+      </main>
+    </div>
+  </div>
+
 
 </body>
 

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var usermodel = require("../models/user.model");
+var productModel = require("../models/product.model");
 var passport = require("passport");
 var bcrypt = require("bcrypt");
 var auth = require("../middlewares/auth_user");
@@ -10,6 +11,22 @@ router.get("/register", (req, res, next) => {
     layout: "blank_layout",
     title: "Register",
     extra: "<link rel='stylesheet' href='/stylesheets/logform.css' />"
+  });
+});
+
+router.get("/add/product", (req, res, next) => {
+  res.render("user/add_product", {
+    layout: "layout",
+    title: "Add product",
+    extra: "<link rel='stylesheet' href='/stylesheets/logform.css' />"
+  });
+});
+
+router.post("/add/product", (req, res, next) => {
+  req.body["user_id"] = req.user.id;
+  var body = req.body;
+  productModel.add(body).then(n => {
+    res.redirect("/");
   });
 });
 
@@ -60,7 +77,7 @@ router.post("/login", (req, res, next) => {
 
 router.post("/logout", auth, (req, res, next) => {
   req.logOut();
-  res.redirect("/login");
+  res.redirect("/users/login");
 });
 
 router.get("/:id/profiler", auth, (req, res, next) => {
