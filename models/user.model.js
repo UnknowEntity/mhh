@@ -36,11 +36,24 @@ var userModel = {
   //   return db.load(sql);
   // },
   getCurrentCart: function(id) {
-    var sql = `SELECT P.* 
+    var sql = `SELECT P.*, CP.quanlity AS quanlity_bought
       FROM cart C, cart_product CP, product P 
       WHERE C.user_id=${id} 
       AND CP.cart_id=C.id 
       AND CP.product_id=P.id`;
+    return db.load(sql);
+  },
+  getCurrentCartID: id => {
+    var sql = `SELECT id FROM cart WHERE user_id = ${id} AND status=1`;
+    return db.load(sql);
+  },
+  isInCart: (userId, productId) => {
+    var sql = `SELECT CP.product_id 
+    FROM cart C, cart_product CP
+    WHERE C.user_id=${userId}
+    AND C.status=1
+    AND C.id=CP.cart_id
+    AND CP.product_id=${productId}`;
     return db.load(sql);
   }
 };

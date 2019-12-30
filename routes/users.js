@@ -5,6 +5,7 @@ var productModel = require("../models/product.model");
 var passport = require("passport");
 var bcrypt = require("bcrypt");
 var auth = require("../middlewares/auth_user");
+var getCart = require("../middlewares/getCart");
 
 router.get("/register", (req, res, next) => {
   res.render("user/register", {
@@ -14,7 +15,7 @@ router.get("/register", (req, res, next) => {
   });
 });
 
-router.get("/add/product", (req, res, next) => {
+router.get("/:id/add/", auth, (req, res, next) => {
   res.render("user/add_product", {
     layout: "layout",
     title: "Add product",
@@ -22,7 +23,7 @@ router.get("/add/product", (req, res, next) => {
   });
 });
 
-router.post("/add/product", (req, res, next) => {
+router.post("/:id/add/", (req, res, next) => {
   req.body["user_id"] = req.user.id;
   var body = req.body;
   productModel.add(body).then(n => {
@@ -147,6 +148,15 @@ router.get("/is-available", (req, res, next) => {
       return res.json(false);
     }
     return res.json(true);
+  });
+});
+
+router.get("/:id/cart", auth, getCart, (req, res, next) => {
+  res.render("user/cart", {
+    layout: "layout",
+    title: "Cart",
+    cartData: req.cart,
+    isLogin: req.user
   });
 });
 
