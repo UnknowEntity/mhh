@@ -28,6 +28,9 @@ var productModel = {
 
   delete: function(product) {
     return db.delete("product", product);
+  },
+  bulkUpdateProduct: sql => {
+    return db.bulkUpdate(sql);
   }
 };
 

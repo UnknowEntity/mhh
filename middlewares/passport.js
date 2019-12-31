@@ -25,8 +25,7 @@ module.exports = function(app) {
             if (same) {
               return done(null, user);
             } else {
-              console.log(err);
-              return done(null, false);
+              return done(null, false, { message: "Not matching password" });
             }
           });
         })

@@ -1,44 +1,65 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each cartData}}
-        <tr>
-            <th scope="row">
-                <div class="mt-2">{{this.id}}</div>
-            </th>
-            <td>
-                <div class="mt-2">{{this.name}}</div>
-            </td>
-            <td>
-                <div class="mt-2">{{this.price}}</div>
-            </td>
-            <td>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="number" name="quanlity" class="form-control" min="1" required
-                            value="{{this.quanlity_bought}}" max="{{this.quanlity}}">
-                        <div class="font-weight-bold">&nbsp;/ {{this.quanlity}}</div>
+<form action="/users/{{isLogin.id}}/cart" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cartData}}
+            <tr id="{{this.id}}">
+                <th scope="row">
+                    <div class="mt-2">{{this.id}}</div>
+                </th>
+                <td>
+                    <div class="mt-2">{{this.name}}</div>
+                </td>
+                <td>
+                    <div class="mt-2">{{this.price}}</div>
+                </td>
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="number" class="form-control" min="1" required name="{{this.id}}"
+                                value="{{this.quanlity_bought}}" max="{{this.quanlity}}">
+                            <div class="font-weight-bold">&nbsp;/ {{this.quanlity}}</div>
+                        </div>
                     </div>
-                </form>
-            </td>
-            <td><button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+                </td>
+                <td><button class="btn btn-danger delete-product" type="button" id="{{this.id}}"><i
+                            class="fas fa-times"></i></button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-info">Lưu Thay Đổi Và Tiếp Tục Mua Sắm</button>
+    <button type="submit" class="btn btn-success" formaction="/users/{{isLogin.id}}/checkout">Xác Nhận Giỏ Hàng Và Thanh
+        Toán</button>
+</form>
 <script>
     $("input[type=number]").blur(function () {
         let value = $(this).val();
         if (value === "") {
             $(this).val(1);
         }
+    });
+    $("button.delete-product").click(function () {
+        let idProduct = $(this).attr('id');
+        $.ajax({
+            method: "POST",
+            url: `/users/cart/remove`,
+            data: JSON.stringify({ id: idProduct }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+            .done(function (msg) {
+                console.log(msg);
+                $(`tr#${idProduct}`).remove();
+            });
+
     });
 </script>

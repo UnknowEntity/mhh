@@ -1,8 +1,8 @@
-var usermodel = require("../models/user.model");
+var cartmodel = require("../models/cart.model");
 
 module.exports = (req, res, next) => {
   if (req.user !== false && req.user !== undefined) {
-    usermodel.isInCart(req.user.id, req.params.id).then(cartData => {
+    cartmodel.isInCart(req.user.id, req.params.id).then(cartData => {
       if (cartData.length === 1) {
         req["product"] = true;
       } else {

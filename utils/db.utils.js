@@ -59,27 +59,10 @@ module.exports = {
       var connection = createConnection();
       connection.connect();
 
-      var id = obj.Id;
-      delete obj.Id;
+      var id = obj.id;
+      delete obj.id;
       console.log(id);
-      var sql = `update ${tableName} set ? where Id = ?`;
-
-      connection.query(sql, [obj, id], (error, results, fields) => {
-        if (error) reject(error);
-        resolve(results.changedRows);
-      });
-      connection.end();
-    });
-  },
-  updateCol: (tableName, obj) => {
-    return new Promise((resolve, reject) => {
-      var connection = createConnection();
-      connection.connect();
-
-      var id = obj.ID;
-      delete obj.ID;
-      console.log(id);
-      var sql = `update ${tableName} set ? where ID = ?`;
+      var sql = `update ${tableName} set ? where id = ?`;
 
       connection.query(sql, [obj, id], (error, results, fields) => {
         if (error) reject(error);
@@ -89,12 +72,25 @@ module.exports = {
     });
   },
 
-  delete: (tableName, id) => {
+  bulkUpdate: sql => {
     return new Promise((resolve, reject) => {
       var connection = createConnection();
       connection.connect();
 
-      var sql = `delete from ${tableName} where Id = ?`;
+      connection.query(sql, (error, results, fields) => {
+        if (error) reject(error);
+        resolve(results.changedRows);
+      });
+      connection.end();
+    });
+  },
+
+  delete: (tableName, column, id) => {
+    return new Promise((resolve, reject) => {
+      var connection = createConnection();
+      connection.connect();
+
+      var sql = `delete from ${tableName} where ${column} = ?`;
       connection.query(sql, id, (error, results, fields) => {
         if (error) reject(error);
         resolve(results.affectedRows);

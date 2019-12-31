@@ -26,7 +26,7 @@ router.post("/:id", function(req, res, next) {
   if (req.user !== false && req.user !== undefined) {
     let idUser = req.user.id;
     let idProduct = req.params.id;
-    userModel.getCurrentCartID(idUser).then(id => {
+    cartModel.getCurrentCartID(idUser).then(id => {
       let idCart = id[0].id;
       let product = { product_id: idProduct, cart_id: idCart, quanlity: 1 };
       console.log(product);

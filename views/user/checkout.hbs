@@ -1,0 +1,92 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each cartData}}
+        <tr>
+            <th scope="row">
+                <div class="mt-2">{{this.id}}</div>
+            </th>
+            <td>
+                <div class="mt-2">{{this.name}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.price}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.quanlity_bought}}</div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<div>
+    <div class="font-weight-bold">Total: {{total}}</div>
+    <div class="font-weight-bold">Post Office Fee: {{poFee}} ( 4% )</div>
+    <div class="font-weight-bold">Website Fee: {{websiteFee}} ( 10% )</div>
+    <div class="font-weight-bold">Third-party Transaction Fee: {{tptFee}} ( 5% )</div>
+    <div class="font-weight-bold">Final Price: {{finalPrice}}</div>
+</div>
+<form id="checkouForm" method="POST" action="/users/{{isLogin.id}}/confrim_checkout">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">SĐT</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="0909000000"
+            value="{{isLogin.sdt}}" name="sdt">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Credit Card</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="892731987"
+            value="{{isLogin.atm}}" name="atm">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Địa Chỉ</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+            name="dia_chi">{{isLogin.dia_chi}}</textarea>
+    </div>
+    <a href="/users/{{isLogin.id}}/cart" class="btn btn-info">Quay Về Giỏ Hàng</a>
+    <button type="submit" class="btn btn-success">Xác Nhận Và Thanh Toán</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+        $('#checkouForm').validate({
+            rules: {
+                sdt: {
+                    required: true,
+                },
+                atm: {
+                    required: true,
+                },
+                dia_chi: {
+                    required: true,
+                },
+            },
+            messages: {
+                sdt: {
+                    required: 'Your Phone Number is required.',
+                },
+                atm: {
+                    required: 'Your Credit Card Number is required.',
+                },
+                dia_chi: {
+                    required: 'Your Recivece Address is required.'
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'form-text text-danger',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>
