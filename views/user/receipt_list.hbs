@@ -1,0 +1,62 @@
+<div class="error"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Total</th>
+            <th scope="col">Address</th>
+            <th scope="col">Credit Card</th>
+            <th scope="col">Order Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each receiptData}}
+        <tr id="{{this.id}}">
+            <th scope="row">
+                <div class="mt-2">{{this.id}}</div>
+            </th>
+            <td>
+                <div class="mt-2">{{MoneyFormat this.total}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.dia_chi}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.atm}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{DateFormat this.buy_date}}</div>
+            </td>
+            <td><button class="btn btn-danger delete-product" type="button" id="{{this.id}}">Hùy Hóa Đơn</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+
+    $("button.delete-product").click(function () {
+        let idReceipt = $(this).attr('id');
+        $.ajax({
+            method: "POST",
+            url: `/users/receipt/remove`,
+            data: JSON.stringify({ id: idReceipt }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+            .done(function (msg) {
+                console.log(msg);
+                let isDue = msg.isDue;
+                if (isDue) {
+                    $('div.error').html(`
+                    <div class="alert alert-danger" role="alert">
+                        Receipt is Over 24h!
+                    </div>`);
+                } else {
+                    $(`tr#${idReceipt}`).remove();
+                }
+
+            });
+
+    });
+</script>

@@ -28,7 +28,8 @@ router.get("/:id/add/", auth, (req, res, next) => {
   res.render("user/add_product", {
     layout: "layout",
     title: "Add product",
-    extra: "<link rel='stylesheet' href='/stylesheets/logform.css' />"
+    extra: "<link rel='stylesheet' href='/stylesheets/logform.css' />",
+    isLogin: req.user
   });
 });
 
@@ -99,10 +100,22 @@ router.get("/:id/profiler", auth, (req, res, next) => {
     .singleById(id)
     .then(data => {
       res.render("user/profile", {
-        UserId: req.user.Id,
-        title: "Portfolio",
-        data: data[0]
+        title: "Account",
+        userData: data[0],
+        isLogin: req.user
       });
+    })
+    .catch(err => console.log(err));
+});
+
+router.post("/:id/profiler", auth, (req, res, next) => {
+  var id = req.params.id;
+  var user = req.body;
+  user["id"] = id;
+  usermodel
+    .update(user)
+    .then(data => {
+      res.redirect("/");
     })
     .catch(err => console.log(err));
 });
@@ -230,6 +243,7 @@ router.get("/:id/confrim_checkout", auth, getCart, (req, res, next) => {
   websiteFee = total * 0.1;
   tptFee = total * 0.05;
   finalPrice = total + poFee + websiteFee + tptFee;
+  console.log(req.user);
   res.render("user/checkout", {
     layout: "layout",
     title: "Confrim Checkout",
@@ -315,6 +329,76 @@ router.post("/:id/confrim_checkout", auth, (req, res, next) => {
         res.redirect(`/`);
       });
     });
+  });
+});
+
+router.get("/:id/receipt", auth, (req, res, next) => {
+  let id = req.params.id;
+  receiptModel.getUserReceiptList(id).then(receiptData => {
+    res.render("user/receipt_list", {
+      layout: "layout",
+      title: "Receipt List",
+      receiptData: receiptData,
+      isLogin: req.user
+    });
+  });
+});
+
+router.get("/:id/product_owned", auth, (req, res, next) => {
+  let id = req.params.id;
+  productModel.getUserOwnedProduct(id).then(ownedProduct => {
+    res.render("user/owned_product_list", {
+      layout: "layout",
+      title: "Bought Product List",
+      ownedProduct,
+      isLogin: req.user
+    });
+  });
+});
+
+router.post("/receipt/remove", (req, res, next) => {
+  let id = req.body.id;
+  receiptModel.singleById(id).then(receiptData => {
+    let receipt = receiptData[0];
+    let dateCurr = moment(Date.now());
+    let buy_date = moment(receipt.buy_date);
+    let hours = dateCurr.diff(buy_date, "hour");
+    if (hours > 24) {
+      res.status(200).json({ isDue: true });
+    } else {
+      receiptModel.deleteProductWithReceiptID(id).then(n => {
+        receiptModel.delete("id", id).then(n => {
+          res.status(200).json({ isDue: false });
+        });
+      });
+    }
+  });
+});
+
+router.get("/:id/post_product", auth, (req, res, next) => {
+  let id = req.params.id;
+  productModel.allByUser(id).then(productData => {
+    res.render("user/post_product_list", {
+      layout: "layout",
+      title: "Post Product List",
+      productData,
+      isLogin: req.user
+    });
+  });
+});
+
+router.post("/product/remove", (req, res, next) => {
+  let id = req.body.id;
+  productModel.isProductBought(id).then(productData => {
+    console.log(productData);
+    let isBought = productData.length > 0 ? true : false;
+    if (isBought) {
+      res.status(200).json({ isBought });
+    } else {
+      productModel.delete(id).then(n => {
+        res.status(200).json({ isBought });
+      });
+    }
   });
 });
 

@@ -5,6 +5,7 @@ var isOwned = require("../middlewares/inCart");
 var productModel = require("../models/product.model");
 var userModel = require("../models/user.model");
 var cartModel = require("../models/cart.model");
+var moment = require("moment");
 
 /* GET home page. */
 router.get("/:id", isLogin, isOwned, function(req, res, next) {
@@ -37,6 +38,38 @@ router.post("/:id", function(req, res, next) {
   } else {
     res.redirect("/users/login");
   }
+});
+
+router.get("/:id/review", (req, res, next) => {
+  let id = req.params.id;
+  if (req.user === false || req.user === undefined) {
+    res.redirect("/users/login");
+  }
+  productModel.getProductInfo(id).then(productInfo => {
+    res.render("product/review", {
+      layout: "layout",
+      title: "Bought Product List",
+      data: productInfo[0],
+      extra:
+        '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">' +
+        "<link rel='stylesheet' href='/stylesheets/product_info.css' />",
+      isLogin: req.user
+    });
+  });
+});
+
+router.post("/:id/review", (req, res, next) => {
+  let id = req.params.id;
+  if (req.user === false || req.user === undefined) {
+    res.redirect("/users/login");
+  }
+  let review = req.body;
+  review["user_id"] = req.user.id;
+  review["date_review"] = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+  review["product_id"] = id;
+  productModel.addReview(review).then(n => {
+    res.status(200).send({ message: "ok" });
+  });
 });
 
 module.exports = router;

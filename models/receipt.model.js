@@ -9,6 +9,11 @@ var receiptModel = {
     return db.load(sql);
   },
 
+  getUserReceiptList: id => {
+    var sql = `SELECT * FROM receipt WHERE user_id = ${id}`;
+    return db.load(sql);
+  },
+
   add: function(receipt) {
     return db.insert("receipt", receipt);
   },
@@ -17,9 +22,14 @@ var receiptModel = {
     return db.update("receipt", receipt);
   },
 
-  delete: function(receipt) {
-    return db.delete("receipt", receipt);
+  delete: function(col, id) {
+    return db.delete("receipt", col, id);
   },
+
+  deleteProductWithReceiptID: id => {
+    return db.delete("receipt_product", "receipt_id", id);
+  },
+
   addMutiple: function(object) {
     return db.bulkInsert(
       "receipt_product",
