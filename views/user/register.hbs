@@ -1,28 +1,35 @@
-<form id="RegisterForm" class="shadow p-3" method="POST">
-    <div class="form-group">
-        <label for="InputUsername">User name</label>
-        <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter user name">
-    </div>
-    <div class="form-group">
-        <label for="InputEmail">Email address</label>
-        <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp"
-            placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-        <label for="txtConfirm">Confirm Password</label>
-        <input type="password" class="form-control" id="txtConfirm" name="confirm">
-    </div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary w-50">Register</button>
-    </div>
-    <div class="text-center p-3">
-        <a href="/users/login" class="btn btn-success">Login</a>
-    </div>
-</form>
+<div>
+    <form id="RegisterForm" class="shadow p-3" method="POST">
+        <div class="form-group">
+            <label for="InputUsername">User name</label>
+            <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter user name">
+        </div>
+        <div class="form-group">
+            <label for="InputEmail">Email address</label>
+            <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp"
+                placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="txtConfirm">Confirm Password</label>
+            <input type="password" class="form-control" id="txtConfirm" name="confirm">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-50">Register</button>
+        </div>
+        <div class="text-center p-3">
+            <a href="/users/login" class="btn btn-success">Login</a>
+        </div>
+    </form>
+    <footer class="container-fluid bg-4 text-center">
+        <p>2019-2020</p>
+        Software Modeling
+    </footer>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script>
     $(function () {

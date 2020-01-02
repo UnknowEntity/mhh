@@ -1,56 +1,122 @@
-<div class="content shadow">
-    <div class="d-flex flex-row border-bottom border-secondary pb-2">
-        <div>
-            <img class="Cover" src="{{data.thumbnail}}" />
-            <div class="d-flex justify-content-center">
+<div>
+    <div class="content shadow">
+        <div class="d-flex flex-row border-bottom border-secondary pb-2">
+            <div>
+                <img class="Cover" src="{{data.thumbnail}}" />
+                <div class="d-flex justify-content-center">
+                </div>
             </div>
-        </div>
 
-        <div class="Info-wrap">
-            <div class="border-bottom pb-2 border-secondary">
-                <h4>{{data.name}}</h4>
-                <p class="d-flex flex-row">Seller: &nbsp;
-                    <a href="/users/info/{{data.user_id}}" class="font-weight-bold Seller">{{data.username}}</a></p>
-                <button class="btn  {{#if isOwned}}
-                    btn-light
-                {{else}}
-                    btn-success
-                {{/if}} " type="button" id="{{data.id}}" {{#if isOwned}} disabled {{/if}}><i
-                        class="fas fa-cart-plus"></i></button>
-                <div class="mt-2 mb-2">Quanlity: {{data.quanlity}}</div>
-                <div class="d-flex flex-row">
-                    <div>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star-half-alt text-warning"></i>
-                    </div>
-                    <div>
+            <div class="Info-wrap">
+                <div class="border-bottom pb-2 border-secondary">
+                    <h4>{{data.name}}</h4>
+                    <p class="d-flex flex-row">Seller: &nbsp;
+                        <a href="/users/info/{{data.user_id}}" class="font-weight-bold Seller">{{data.username}}</a></p>
+                    <button class="btn  {{#if isOwned}}
+                        btn-light
+                    {{else}}
+                        btn-success
+                    {{/if}} " type="button" id="{{data.id}}" {{#if isOwned}} disabled {{/if}}><i
+                            class="fas fa-cart-plus"></i></button>
+                    <div class="mt-2 mb-2">Quantity: {{data.quanlity}}</div>
+                    <div class="d-flex flex-row">
                         <div>
-                            &nbsp;(4.07) (5,781,007 ratings)
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <div>
+                            <div>
+                                &nbsp;(4.07) (5,781,007 ratings)
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center border-bottom pb-2 border-secondary">
-        <div class="Description">
-            <div>
-                <h5>Description:</h5>
-            </div>
-            <div class="Text-Truncate book-description">
-                {{data.description}}
-            </div>
-            <div>
-                <button type="button" class="btn btn-light" onclick="SeeMore(event);">
-                    More
-                </button>
+        <div class="d-flex justify-content-center border-bottom pb-2 border-secondary">
+            <div class="Description">
+                <div>
+                    <h5>Description:</h5>
+                </div>
+                <div class="Text-Truncate book-description">
+                    {{data.description}}
+                </div>
+                <div>
+                    <button type="button" class="btn btn-light" onclick="SeeMore(event);">
+                        More
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="reviews content">
+        Reviews
+    </div>
+
+    <div class="content border-bottom border-top pb-2 border-secondary">
+        <p class="d-flex flex-row">User: &nbsp;
+            <a href="/" class="font-weight-bold Seller">Ab</a></p>
+        <div class="d-flex flex-row">
+            <div>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+            </div>
+            <div>
+                <div>
+                    &nbsp;(4)
+                </div>
+            </div>
+        </div>
+        <div>Very fast service, delivered in just a few days and the game is pretty good. </div>
+    </div>
+
+    <div class="content border-bottom border-top pb-2 border-secondary">
+    <p class="d-flex flex-row">User: &nbsp;
+        <a href="/" class="font-weight-bold Seller">Ryan</a></p>
+    <div class="d-flex flex-row">
+        <div>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+        </div>
+        <div>
+            <div>
+                &nbsp;(5)
+            </div>
+        </div>
+    </div>
+    <div>5 stars !!!</div>
+    </div>
+
+    <div class="content border-bottom border-top pb-2 border-secondary">
+    <p class="d-flex flex-row">User: &nbsp;
+        <a href="/" class="font-weight-bold Seller">Zzz</a></p>
+    <div class="d-flex flex-row">
+        <div>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star-half-alt text-warning"></i>
+        </div>
+        <div>
+            <div>
+                &nbsp;(4.5)
+            </div>
+        </div>
+    </div>
+    <div>The delivery was fast and outstanding and the game lives up to every expectations !</div>
+    </div>
 </div>
+
 <script>
     $("button").click(function () {
         let idProduct = $(this).attr('id');

@@ -1,27 +1,34 @@
-<div class="input-box">
-    {{#if Err_Mess}}
-    <div class="alert alert-warning fade show" role="alert">
-        {{Err_Mess}}
+<div>
+    <div class="input-box">
+        {{#if Err_Mess}}
+        <div class="alert alert-warning fade show" role="alert">
+            {{Err_Mess}}
+        </div>
+        {{/if}}
+        <form class="shadow p-3" id="RegisterForm" method="POST">
+            <div class="form-group">
+                <label for="InputUsername">User name</label>
+                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter user name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                    placeholder="Password">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-50">Login</button>
+            </div>
+            <div class="text-center p-3">
+                <a href="/users/register" class="btn btn-success">Register</a>
+            </div>
+        </form>
     </div>
-    {{/if}}
-    <form class="shadow p-3" id="RegisterForm" method="POST">
-        <div class="form-group">
-            <label for="InputUsername">User name</label>
-            <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter user name">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password"
-                placeholder="Password">
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary w-50">Login</button>
-        </div>
-        <div class="text-center p-3">
-            <a href="/users/register" class="btn btn-success">Register</a>
-        </div>
-    </form>
+    <footer class="container-fluid bg-4 text-center">
+        <p>2019-2020</p>
+        Software Modeling
+    </footer>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script>
     $(function () {
