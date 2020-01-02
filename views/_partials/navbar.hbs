@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <a class="navbar-brand" href="/">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,12 +33,26 @@
             {{!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
             {{#if isLogin}}
-            <a class="btn btn-success my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/add/">Add Product</a>
+            <div class="dropdown">
+                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Product
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/users/{{isLogin.id}}/post_product/">Your Products</a>
+                    <a class="dropdown-item" href="/users/{{isLogin.id}}/add/">Add Product</a>
+                </div>
+            </div>
             <a class="btn btn-light my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/cart/"><i
                     class="fas fa-shopping-cart"></i></a>
-            <a class="btn btn-light my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/profile/"><i
+            <a class="btn btn-light my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/profiler/"><i
                     class="fas fa-user"></i></a>
-            <form action="/users/logout" method="POST">
+            <a class="btn btn-light my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/receipt/"><i
+                    class="fas fa-receipt"></i></a>
+            <a class="btn btn-light my-2 my-sm-0 ml-2" href="/users/{{isLogin.id}}/product_owned/"><i
+                    class="fas fa-box-open"></i></a>
+            <form action="/users/logout" method="POST" class="Logout">
                 <button class="btn btn-secondary ml-3" type="submit">Sign out</button>
             </form>
             {{else}}

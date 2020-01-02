@@ -91,7 +91,8 @@ module.exports = {
       connection.connect();
 
       var sql = `delete from ${tableName} where ${column} = ?`;
-      connection.query(sql, id, (error, results, fields) => {
+      connection.query(sql, [id], (error, results, fields) => {
+        console.log(error);
         if (error) reject(error);
         resolve(results.affectedRows);
       });

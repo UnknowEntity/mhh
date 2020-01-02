@@ -1,0 +1,79 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+<div class="content shadow p-3">
+    <div class="d-flex flex-row border-bottom border-secondary pb-2">
+        <div>
+            <img class="Cover" src="{{data.thumbnail}}" />
+            <div class="d-flex justify-content-center">
+            </div>
+        </div>
+
+        <div class="Info-wrap">
+            <div class=" pb-2 ">
+                <h4>{{data.name}}</h4>
+                <div class="d-flex flex-row">Seller: &nbsp;
+                    <div class="font-weight-bold Seller">{{data.username}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="checkouForm" method="POST" action="/users/{{isLogin.id}}/confrim_checkout">
+        <div id="rateYo"></div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Mô tả:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+        </div>
+        <a href="/users/{{isLogin.id}}/product_owned" class="btn btn-info">Quay Về Danh Sách Sản Phẩm Đã Mua</a>
+        <button class="btn btn-success postReview" type="button" id="{{data.id}}">Đăng Review</button>
+    </form>
+</div>
+
+
+<script>
+    $("#rateYo").rateYo({
+        rating: 2.5,
+        halfStar: true,
+        precision: 2,
+        multiColor: {
+
+            "startColor": "#FF0000", //RED
+            "endColor": "#00FF00"  //GREEN
+        }
+    });
+    $('#checkouForm').validate({
+        rules: {
+            content: {
+                required: true,
+            },
+        },
+        messages: {
+            content: {
+                required: 'Your Description is required.',
+            },
+        },
+        errorElement: 'small',
+        errorClass: 'form-text text-danger',
+        highlight: function (e) {
+            $(e).removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (e) {
+            $(e).removeClass('is-invalid').addClass('is-valid');
+        }
+    });
+    $('button.postReview').click(function () {
+        let score = $("#rateYo").rateYo("rating");
+        let content = $('textarea').val();
+        let product_id = $(this).attr('id');
+        $.ajax({
+            method: "POST",
+            url: `/products/${product_id}/review`,
+            data: JSON.stringify({ score, content }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+            .done(function (msg) {
+                window.location.href = "/";
+            });
+    })
+</script>

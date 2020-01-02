@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each ownedProduct}}
+        <tr id="{{this.id}}">
+            <th scope="row">
+                <div class="mt-2">{{this.id}}</div>
+            </th>
+            <td>
+                <div class="mt-2">{{this.name}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.price}}</div>
+            </td>
+            <td>
+                <a class="btn btn-success" href="/products/{{this.id}}/review">Review</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

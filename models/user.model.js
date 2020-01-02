@@ -26,8 +26,8 @@ var userModel = {
     return db.update("user", user);
   },
 
-  delete: function(user) {
-    return db.delete("user", user);
+  delete: function(id) {
+    return db.delete("user", "id", id);
   }
 
   // allByProject: function (id) {

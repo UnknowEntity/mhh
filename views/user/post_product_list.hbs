@@ -1,0 +1,63 @@
+<div class="error"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productData}}
+        <tr id="{{this.id}}">
+            <th scope="row">
+                <div class="mt-2">{{this.id}}</div>
+            </th>
+            <td>
+                <div class="mt-2">{{this.name}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{MoneyFormat this.price}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.quanlity}}</div>
+            </td>
+            <td>
+                <a href="/products/{{this.id}}" class="btn btn-info">Info</a>
+            </td>
+            <td><button class="btn btn-danger delete-product" type="button" id="{{this.id}}">Hùy Sản Phẩm</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+
+    $("button.delete-product").click(function () {
+        let idProduct = $(this).attr('id');
+        $.ajax({
+            method: "POST",
+            url: `/users/product/remove`,
+            data: JSON.stringify({ id: idProduct }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+            .done(function (msg) {
+                console.log(msg);
+                let isBought = msg.isBought;
+                if (isBought) {
+                    $('div.error').html(`
+                    <div class="alert alert-danger" role="alert">
+                        Product already bought
+                    </div>`);
+                } else {
+                    $(`tr#${idProduct}`).remove();
+                }
+
+            });
+
+    });
+</script>
