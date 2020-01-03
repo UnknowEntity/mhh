@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each usersData}}
+        <tr id="{{this.id}}">
+            <th scope="row">
+                <div class="mt-2">{{this.id}}</div>
+            </th>
+            <td>
+                <div class="mt-2">{{this.username}}</div>
+            </td>
+            <td>
+                <div class="mt-2">{{this.email}}</div>
+            </td>
+            <td>
+                <a class="btn btn-success" href="/admin/users/{{this.id}}/">Info</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

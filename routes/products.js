@@ -17,10 +17,12 @@ router.get("/:id", isLogin, isOwned, function(req, res, next) {
       data: product,
       isLogin: req.user,
       isOwned: req.product,
-      extra: "<link rel='stylesheet' href='/stylesheets/product_info.css' />",
+      extra:
+        "<link rel='stylesheet' href='/stylesheets/product_info.css' />" +
+        '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">',
       script: '<script src="/javascripts/script_product.js"></script>'
     });
-  });
+  }).catch(next);
 });
 
 router.post("/:id", function(req, res, next) {

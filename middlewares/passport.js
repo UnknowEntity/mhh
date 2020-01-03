@@ -23,6 +23,12 @@ module.exports = function(app) {
           var user = rows[0];
           bcrypt.compare(password, user.password, (err, same) => {
             if (same) {
+              if (!user.status) {
+                return done(null, false, {
+                  message:
+                    "Your Accout Is BAN!\n contact eshopping@gmail.com For more information"
+                });
+              }
               return done(null, user);
             } else {
               return done(null, false, { message: "Not matching password" });

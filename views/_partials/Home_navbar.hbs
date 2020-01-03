@@ -1,34 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container-fluid row">
-        <div class="col-1">
-            <div class="sidebar-header">
-                <button type="button" id="sidebarCollapse" class="btn btn-light" style="left: -1px">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-        <div class="col-7">
-            <p class="navbar-brand pt-3">Home</p>
-        </div>
-        <form class="form-inline mr-3 col-3">
-            <div class="input-group flex-nowrap">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
-                </div>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                    aria-describedby="addon-wrapping">
-            </div>
-        </form>
-        <form action="/users/logout" method="POST">
-            <button class="btn btn-secondary btn-small" type="submit">Sign out</button>
-        </form>
-        <form id="frmSignout" action="/users/logout" ></form>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <li class="nav-item text-nowrap">
-                <form action="/users/logout">
-                    <button class="nav-link" type="submit">Sign out</button>
-                </form>
-            </li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        <img src="/img/store.png" style="width:50px; height:50px;"></img>
+        Commercial Store
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <form action="/users/logout" method="POST" class="Logout">
+                <button class="btn btn-secondary ml-3" type="submit">Sign out</button>
+            </form>
         </div>
     </div>
 </nav>

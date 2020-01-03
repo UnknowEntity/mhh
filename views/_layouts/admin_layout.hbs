@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/picture/web/favicon.ico" />
+
+    {{#if extra}}
+    {{{extra}}}
+    {{/if}}
+
+</head>
+
+<body>
+
+    {{#if script}}
+    {{{script}}}
+    {{/if}}
+
+
+    {{> Home_navbar}}
+    <div class="container-fluid d-flex align-items-stretch w-100">
+        <div class="row w-100">
+            <main role="main" class="px-4 w-100" id="content">
+                {{{body}}}
+            </main>
+        </div>
+    </div>
+
+    <footer class="container-fluid bg-4 text-center">
+        <p>2019-2020</p>
+        Software Modeling
+    </footer>
+</body>
+
+</html>
+
+</html>

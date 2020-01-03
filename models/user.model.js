@@ -3,6 +3,9 @@ var userModel = {
   all: function() {
     return db.load("select * from user;");
   },
+  allExceptAdmin: function() {
+    return db.load("select * from user WHERE role <> 0;");
+  },
   singleByUserName: userName => {
     return db.load(`select * from user where username = '${userName}'`);
   },
