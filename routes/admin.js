@@ -11,7 +11,7 @@ router.get("/users", isAmin, function(req, res, next) {
       title: "Admin View",
       isLogin: req.user,
       usersData: usersData,
-      extra: "<link rel='stylesheet' href='/stylesheets/homepage.css' />"
+      extra: "<link rel='stylesheet' href='/stylesheets/style.css' />"
     });
   });
 });
@@ -24,7 +24,7 @@ router.get("/users/:id", isAmin, function(req, res, next) {
       title: "User Info",
       isLogin: req.user,
       userData: userData[0],
-      extra: "<link rel='stylesheet' href='/stylesheets/homepage.css' />"
+      extra: "<link rel='stylesheet' href='/stylesheets/style.css' />"
     });
   });
 });
