@@ -22,12 +22,8 @@
                     {{/if}}
                     <div class="mt-2 mb-2">Quantity: {{data.quanlity}}</div>
                     <div class="d-flex flex-row">
-                        <div>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star-half-alt text-warning"></i>
+                        <div class="stars-outer">
+                            <div class="stars-inner" rating="4.07"></div>
                         </div>
                         <div>
                             <div>
@@ -55,68 +51,55 @@
         </div>
     </div>
 
-    <div class="reviews content">
-        Reviews
-    </div>
-
-    <div class="content border-bottom border-top pb-2 border-secondary">
-        <p class="d-flex flex-row">User: &nbsp;
-            <a href="/" class="font-weight-bold Seller">Ab</a></p>
-        <div class="d-flex flex-row">
-            <div>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-            </div>
-            <div>
+    <div class="content">
+        <div class="reviews ">
+            Reviews
+        </div>
+        {{#if userReview}}
+        <div class="card w-100 mb-3 border border-warning">
+            <div class="card-header d-flex justify-content-between">
                 <div>
-                    &nbsp;(4)
+                    <div>{{userReview.name}}</div>
+                    <div>{{DateFormat userReview.date_review}}</div>
+                </div>
+                <div>
+                    <div class="stars-outer">
+                        <div class="stars-inner" rating="{{userReview.score}}"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div>Very fast service, delivered in just a few days and the game is pretty good. </div>
-    </div>
-
-    <div class="content border-bottom border-top pb-2 border-secondary">
-        <p class="d-flex flex-row">User: &nbsp;
-            <a href="/" class="font-weight-bold Seller">Ryan</a></p>
-        <div class="d-flex flex-row">
-            <div>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
+            {{#if userReview.content}}
+            <div class="card-body">
+                <p class="card-text">{{userReview.content}}
+                </p>
             </div>
-            <div>
+            {{/if}}
+        </div>
+        {{/if}}
+        {{#each otherReview}}
+        <div class="card w-100 mb-3">
+            <div class="card-header d-flex justify-content-between">
                 <div>
-                    &nbsp;(5)
+                    <div>{{this.name}}</div>
+                    <div>{{DateFormat this.date_review}}</div>
+                </div>
+                <div>
+                    <div class="stars-outer">
+                        <div class="stars-inner" rating="{{this.score}}"></div>
+                    </div>
                 </div>
             </div>
+            {{#if this.content}}
+            <div class="card-body">
+                <p class="card-text">{{this.content}}
+                </p>
+            </div>
+            {{/if}}
         </div>
-        <div>5 stars !!!</div>
+        {{/each}}
     </div>
 
-    <div class="content border-bottom border-top pb-2 border-secondary">
-        <p class="d-flex flex-row">User: &nbsp;
-            <a href="/" class="font-weight-bold Seller">Zzz</a></p>
-        <div class="d-flex flex-row">
-            <div>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star-half-alt text-warning"></i>
-            </div>
-            <div>
-                <div>
-                    &nbsp;(4.5)
-                </div>
-            </div>
-        </div>
-        <div>The delivery was fast and outstanding and the game lives up to every expectations !</div>
-    </div>
+
 </div>
 
 <script>

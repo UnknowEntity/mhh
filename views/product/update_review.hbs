@@ -19,20 +19,20 @@
         </div>
     </div>
     <form id="checkouForm" method="POST" action="/users/{{isLogin.id}}/confrim_checkout">
-        <div id="rateYo"></div>
+        <div id="rateYo" data-rateyo-rating="{{reviewData.score}}"></div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Mô tả:</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                name="content">{{reviewData.content}}</textarea>
         </div>
         <a href="/users/{{isLogin.id}}/product_owned" class="btn btn-info">Quay Về Danh Sách Sản Phẩm Đã Mua</a>
-        <button class="btn btn-success postReview" type="button" id="{{data.id}}">Đăng Review</button>
+        <button class="btn btn-success postReview" type="button" id="{{reviewData.id}}">Update Review</button>
     </form>
 </div>
 
 
 <script>
     $("#rateYo").rateYo({
-        rating: 2.5,
         halfStar: true,
         precision: 2,
         multiColor: {
@@ -41,37 +41,17 @@
             "endColor": "#00FF00"  //GREEN
         }
     });
-    $('#checkouForm').validate({
-        rules: {
-            content: {
-                required: true,
-            },
-        },
-        messages: {
-            content: {
-                required: 'Your Description is required.',
-            },
-        },
-        errorElement: 'small',
-        errorClass: 'form-text text-danger',
-        highlight: function (e) {
-            $(e).removeClass('is-valid').addClass('is-invalid');
-        },
-        unhighlight: function (e) {
-            $(e).removeClass('is-invalid').addClass('is-valid');
-        }
-    });
     $('button.postReview').click(function () {
         let score = $("#rateYo").rateYo("rating");
         let content = $('textarea').val().trim();
         if (content === "") {
             content = null;
         }
-        let product_id = $(this).attr('id');
+        let id = $(this).attr('id');
         $.ajax({
             method: "POST",
-            url: `/products/${product_id}/review`,
-            data: JSON.stringify({ score, content }),
+            url: `/products/${id}/review/update`,
+            data: JSON.stringify({ id, score, content }),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         })

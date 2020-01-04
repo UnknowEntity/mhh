@@ -37,8 +37,13 @@ var productModel = {
     return db.bulkUpdate(sql);
   },
   getUserOwnedProduct: id => {
-    var sql = `SELECT DISTINCT P.*
-    FROM product P, receipt_product RP, receipt R
+    var sql = `SELECT DISTINCT P.*, RVU.id AS review_id
+    FROM product P, receipt R, receipt_product RP
+    LEFT JOIN 
+    (SELECT RV.id, RV.product_id
+    FROM review RV
+    WHERE RV.user_id=${id}) AS RVU
+    ON RVU.product_id=RP.product_id
     WHERE P.id=RP.product_id
     AND R.id=RP.receipt_id
     AND R.user_id=${id}`;
