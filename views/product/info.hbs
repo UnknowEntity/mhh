@@ -21,16 +21,18 @@
                             class="fas fa-cart-plus"></i></button>
                     {{/if}}
                     <div class="mt-2 mb-2">Quantity: {{data.quanlity}}</div>
+                    {{#if numRating}}
                     <div class="d-flex flex-row">
                         <div class="stars-outer">
-                            <div class="stars-inner" rating="4.07"></div>
+                            <div class="stars-inner" rating="{{avrRating}}"></div>
                         </div>
                         <div>
                             <div>
-                                &nbsp;(4.07) (5,781,007 ratings)
+                                &nbsp;({{avrRating}}) ({{numRating}} ratings)
                             </div>
                         </div>
                     </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

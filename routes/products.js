@@ -20,6 +20,16 @@ router.get("/:id", isLogin, isOwned, function(req, res, next) {
 
     .then(([productData, otherReview, userReview]) => {
       let product = productData[0];
+      let avrRating = 0;
+      let numRating = 0;
+      for (let index = 0; index < otherReview.length; index++) {
+        avrRating += otherReview[index].score;
+        numRating++;
+      }
+      if (userReview[0] !== undefined) {
+        avrRating += userReview[0].score;
+        numRating++;
+      }
       res.render("product/info", {
         title: product.name,
         data: product,
@@ -27,6 +37,8 @@ router.get("/:id", isLogin, isOwned, function(req, res, next) {
         isOwned: req.product,
         otherReview: otherReview,
         userReview: userReview[0],
+        numRating,
+        avrRating: avrRating / numRating,
         extra:
           "<link rel='stylesheet' href='/stylesheets/product_info.css' />" +
           "<link rel='stylesheet' href='/stylesheets/rating.css' />",
